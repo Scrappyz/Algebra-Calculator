@@ -1,35 +1,21 @@
 #ifndef PARSER_HPP_INCLUDED
 #define PARSER_HPP_INCLUDED
 
-using namespace std;
-
-class Token_stream;
-
 class Token {
 public:
     Token() : type(), num(), var() {}
-
-    string input;
-    char temp;
-    string buffer;
+    Token(char ch) : type(ch), num(), var() {}
+    Token(double n) : type('n'), num(n), var() {}
+    Token(double n, char v) : type('n'), num(n), var(v) {}
 
     char type;
     double num;
     char var;
 
-    void get(Token_stream&);
-    void putback();
+    Token get();
+    bool is_operator(const char&);
     bool is_number(const char&);
     bool is_letter(const char&);
-    bool is_operator(const char&);
-};
-
-class Token_stream {
-public:
-    stringstream input;
-    string buffer;
-
-    char temp;
 };
 
 #endif // PARSER_HPP_INCLUDED
