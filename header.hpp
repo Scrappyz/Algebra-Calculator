@@ -2,6 +2,6 @@
 #define HEADER_HPP_INCLUDED
 
 #include <iostream>
-#include <sstream>
+#include <vector>
 
 #endif // HEADER_HPP_INCLUDED
