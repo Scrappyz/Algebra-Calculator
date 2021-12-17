@@ -13,9 +13,6 @@ public:
     char var;
 
     Token get();
-    bool is_operator(const char&);
-    bool is_number(const char&);
-    bool is_letter(const char&);
 };
 
 #endif // PARSER_HPP_INCLUDED

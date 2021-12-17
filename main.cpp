@@ -1,53 +1,84 @@
 #include "header.hpp"
-#include "expression.hpp"
+#include "utility.hpp"
 #include "parser.hpp"
+#include "expression.hpp"
 #include "equation.hpp"
 
 using namespace std;
 
-void print(const vector<Token>& v)
+void input(Equation& eq, Expression& e)
 {
-    for(int i = 0; i<v.size(); ++i) {
-        cout << v[i].type << " | " << v[i].num << " | " << v[i].var << endl;
-    }
-}
-
-void print_expression(const vector<Token>& v)
-{
-    for(int i = 0; i<v.size(); ++i) {
-        cout << v[i].num << v[i].var << v[i].type;
-    }
-}
-
-/*void input(Expression& e)
-{
-    Token t;
-    char ch;
     while(true) {
-        cin.get(ch);
-        if(ch == '\n' || ch == '=') { break; }
-        cin.unget();
-        e.exp.push_back(t.get());
+        Token t;
+        e = Expression();
+        char ch;
+        while(cin.get(ch)) {
+            if(ch == '\n' || ch == '=') { break; }
+            if(!valid_token(ch)) {
+                cerr << "[Invalid Token]" << endl;
+                e = Expression();
+                cinfail();
+                break;
+            }
+            cin.unget();
+            t = t.get();
+            e.exp.push_back(t);
+        }
+        if(!e.is_valid(e.exp)) {
+            cerr << "[Invalid Expression]" << endl;
+            cin.clear();
+            continue;
+        }
+        if(eq.left.size() == 0) {
+            eq.left = e.exp;
+        } else {
+            eq.right = e.exp;
+        }
+        if(ch == '\n' || (eq.left.size() != 0 && eq.right.size() != 0)) { return; }
     }
-    e.is_valid(e.exp);
-    /*while(true) {
-        cin.get(ch);
-        if(ch == '\n') { break; }
-        cin.unget();
-        eq.right.push_back(t.get());
-    }*/
-//}
+}
 
 int main()
 {
-    Equation eq;
-    Expression e;
+    while(true) {
+        Equation eq;
+        Expression e;
+        char ch;
 
-    input(e);
-    print(e.exp);
-    cout << "============" << endl;
-    //print(eq.right);
-
-    e.simplify(e.exp);
-    print(e.exp);
+        input(eq, e);
+        if(eq.right.size() == 0) {
+            e.simplify(eq.left);
+            print_expression(eq.left);
+        } else {
+            e.simplify(eq.left);
+            e.simplify(eq.right);
+            if(eq.many_var()) {
+                while(true) {
+                    cout << "Find: ";
+                    cin >> ch;
+                    if(eq.does_exist(ch)) { break; }
+                    cerr << "[Where tf is it?]\n";
+                }
+            } else {
+                ch = eq.find_var();
+            }
+            eq.solve_for(ch);
+            print_expression(eq.left);
+            cout << " = ";
+            e.standard_form(eq.right);
+            print_expression(eq.right);
+        }
+        cout << "\n\nRetry? y/n/c: ";
+        cin >> ch;
+        if(ch == 'y') {
+            cinfail();
+            continue;
+        } else if(ch == 'c') {
+            cinfail();
+            cls();
+            continue;
+        } else {
+            return 0;
+        }
+    }
 }

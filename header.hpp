@@ -3,5 +3,6 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #endif // HEADER_HPP_INCLUDED
