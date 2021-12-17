@@ -70,6 +70,7 @@ int main()
         }
         cout << "\n\nRetry? y/n/c: ";
         cin >> ch;
+        cout << endl;
         if(ch == 'y') {
             cinfail();
             continue;
