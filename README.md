@@ -1,5 +1,5 @@
 # Algebra-Calculator
-Can only solve basic equations for now.
+
 
 # How To Use
 1. Input an algebraic equation (if its an expression, it will only simplify)
