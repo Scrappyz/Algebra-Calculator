@@ -2,8 +2,9 @@
 Can only solve basic equations for now.
 
 # How To Use
-1. Input an algebraic equation eg: 2x+5=15 (if its an expression, it will only simplify)
-2. Input the variable you are trying to find. 
+1. Input an algebraic equation (if its an expression, it will only simplify)
+   Ex: 2x+5=15
+3. Input the variable you are trying to find. 
 
 
 # Limitations
