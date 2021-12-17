@@ -1,2 +1,2 @@
 # Algebra-Calculator
-Work in progress
+Can only solve basic equations for now.
