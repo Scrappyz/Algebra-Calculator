@@ -86,7 +86,7 @@ void Equation::solve_for(const char& ch) // ch is the variable we are trying to 
     for(int i = 0; i<right.size(); ++i) { // divide all on the right by the ch's coefficient on the left
         right[i].num /= left[0].num;
     }
-    left[0].num /= left[0].num; // divide the ch's coefficient by itself
+    left[0].num /= left[0].num; // divide ch's coefficient by itself
 
 }
 
