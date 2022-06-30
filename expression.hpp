@@ -1,22 +1,24 @@
 #ifndef EXPRESSION_HPP_INCLUDED
 #define EXPRESSION_HPP_INCLUDED
 
-class Token;
+using namespace std;
 
-class Expression {
+class Expression : public Term {
 public:
-    Expression()
-    {
-        exp.clear();
-    }
+    vector<Term> exp;
 
-    std::vector<Token> exp;
+    Expression() : Term(), exp() {}
 
-    bool is_valid(const std::vector<Token>&);
-    void combine_operator(std::vector<Token>&);
-    void standard_form(std::vector<Token>&);
-    void simplify(std::vector<Token>&);
-    void remove_unused(std::vector<Token>&);
+    bool is_valid(const vector<Term>&); // helper functions
+    bool is_distributed(const vector<Term>&);
+    static bool compare_var(const Term&, const Term&);
+    vector<pair<char, int>> combine_var(vector<pair<char,int>>, const vector<pair<char,int>>&);
+
+    void standard_form(vector<Term>&);
+    void distribute(vector<Term>&);
+    void combine_like_terms(vector<Term>&);
+    void simplify(vector<Term>&);
+    void print_exp(const vector<Term>&, bool = false);
 };
 
 #endif // EXPRESSION_HPP_INCLUDED
