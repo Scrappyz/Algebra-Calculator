@@ -21,6 +21,7 @@ public:
     }
 
     Term get();
+    void clean(vector<Term>&);
     void remove_dups(vector<pair<char, int>>&);
 };
 
