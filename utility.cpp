@@ -1,12 +1,9 @@
-#include "header.hpp"
 #include "utility.hpp"
-#include "parser.hpp"
+#include "term.hpp"
 
 using namespace std;
 
-class Token;
-
-void cls()
+void Utility::cls()
 {
     #if defined(_WIN32) || defined(_WIN64)
         system("cls");
@@ -15,35 +12,19 @@ void cls()
     #endif
 }
 
-void cinfail()
+void Utility::cinfail()
 {
     cin.clear();
     cin.ignore(256, '\n');
 }
 
-void print_token(const vector<Token>& v) // print tokens for debug
+void Utility::unget(int n)
 {
-    for(int i = 0; i<v.size(); ++i) {
-        cout << v[i].type << " | " << v[i].num << " | " << v[i].var << endl;
-    }
+    for(int i = 0; i<n; i++)
+        cin.unget();
 }
 
-void print_expression(const vector<Token>& v) // prints the expression
-{
-    for(int i = 0; i<v.size(); ++i) {
-        if(v[i].num > 0 && i != 0) {
-            cout << '+';
-        }
-        if(v[i].num != 1 || v[i].var == '\0' && v[i].num == 1) {
-            cout << v[i].num;
-        }
-        if(v[i].var != '\0') {
-            cout << v[i].var;
-        }
-    }
-}
-
-bool is_letter(const char& ch)
+bool Utility::is_letter(char ch)
 {
     switch(ch) {
     case 'a':
@@ -78,7 +59,7 @@ bool is_letter(const char& ch)
     }
 }
 
-bool is_number(const char& ch)
+bool Utility::is_number(char ch)
 {
     switch(ch) {
     case '1':
@@ -97,7 +78,7 @@ bool is_number(const char& ch)
     }
 }
 
-bool is_operator(const char& ch)
+bool Utility::is_operator(char ch)
 {
     switch(ch) {
     case '+':
@@ -105,16 +86,9 @@ bool is_operator(const char& ch)
     case '(':
     case ')':
     case '/':
+    case '^':
         return true;
     default:
         return false;
     }
-}
-
-bool valid_token(const char& ch)
-{
-    if(is_operator(ch) || is_letter(ch) || is_number(ch)) {
-        return true;
-    }
-    return false;
 }
