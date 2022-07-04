@@ -5,7 +5,7 @@ using namespace std;
 
 Term Term::get()
 {
-    vector<pair<char, int>> v;
+    vector<pair<char, int>> v; // var
     double d = 1;
     int temp = 1;
     char ch;
@@ -49,12 +49,20 @@ Term Term::get()
     return Term();
 }
 
-void temp(const vector<pair<char, int>>& v) // delete when done
+void Term::clean(vector<Term>& v)
 {
-    for(int i = 0; i<v.size(); i++) {
-        cout << v[i].first << " | " << v[i].second << endl;
+    if(v[0].type == '(') {
+        v.insert(v.begin(), Term(1.0));
     }
-    cout << endl;
+    if(v[v.size()-2].type == '(' && v[v.size()-1].type == ')') {
+        v.pop_back();
+        v.pop_back();
+        if(v[v.size()-1].type == 'n')
+            v.pop_back();
+    }
+    if(v[v.size()-2].type == '(' && v[v.size()-1].type == '(') {
+        v.insert(v.end()-1, Term(1.0));
+    }
 }
 
 void Term::remove_dups(vector<pair<char, int>>& v)
