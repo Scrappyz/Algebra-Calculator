@@ -1,15 +1,19 @@
 #ifndef UTILITY_HPP_INCLUDED
 #define UTILITY_HPP_INCLUDED
 
-class Token;
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
 
-void print_token(const std::vector<Token>&);
-void print_expression(const std::vector<Token>&);
-bool is_operator(const char&);
-bool is_number(const char&);
-bool is_letter(const char&);
-bool valid_token(const char&);
-void cinfail();
-void cls();
+class Utility {
+public:
+    void cinfail();
+    void cls();
+    void unget(int = 1);
+    bool is_letter(char);
+    bool is_number(char);
+    bool is_operator(char);
+};
 
 #endif // UTILITY_HPP_INCLUDED
